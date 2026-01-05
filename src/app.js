@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
+import authRoutes from "./routes/auth.routes.js";
+
 
 const app = express();
 
@@ -19,5 +21,8 @@ app.get("/health", (req, res) => {
     message: "Notes API is running"
   });
 });
+
+app.use("/api/auth", authRoutes);
+
 
 export default app;
