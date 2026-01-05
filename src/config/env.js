@@ -14,5 +14,7 @@ export const env = {
   pgDb: process.env.PG_DB,
   pgUser: process.env.PG_USER,
   pgPassword: process.env.PG_PASSWORD,
+  jwtSecret: process.env.JWT_SECRET,
+  jwtExpiresIn: process.env.JWT_EXPIRES_IN,
 };
 
