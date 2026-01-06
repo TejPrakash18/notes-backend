@@ -6,6 +6,12 @@ import authRoutes from "./routes/auth.routes.js";
 import { errorHandler } from "./middlewares/error.middleware.js";
 import noteRoutes from "./routes/note.routes.js";
 
+import swaggerUi from "swagger-ui-express";
+
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const swaggerDocument = require("./swagger-output.json");
+
 
 
 const app = express();
@@ -24,6 +30,12 @@ app.get("/health", (req, res) => {
     message: "Notes API is running"
   });
 });
+
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument)
+);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/notes", noteRoutes);
