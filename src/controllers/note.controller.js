@@ -7,9 +7,17 @@ import {
   updateNoteService,
   deleteNoteService,
 } from "../services/note.service.js";
+import  logger  from "../config/logger.js";
 
 export const createNote = asyncHandler(async (req, res) => {
   const note = await createNoteService(req.user.userId, req.body);
+
+  //log event
+  logger.info("Notes created",{
+    userId : req.user.userId,
+    noteId: note.noteId,
+    title: req.body.title 
+  })
 
   res.status(201).json(
     new ApiResponse(201, "Note created successfully", note)

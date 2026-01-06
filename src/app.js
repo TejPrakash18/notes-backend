@@ -6,6 +6,9 @@ import authRoutes from "./routes/auth.routes.js";
 import { errorHandler } from "./middlewares/error.middleware.js";
 import noteRoutes from "./routes/note.routes.js";
 
+import logger from "./config/logger.js";
+
+
 import swaggerUi from "swagger-ui-express";
 
 import { createRequire } from "module";
@@ -23,11 +26,21 @@ app.use(cors());
 app.use(helmet());
 app.use(morgan("dev"));
 
+/* ---------- Request Logger Middleware ---------- */
+app.use((req, res, next) => {
+  logger.info({
+    method: req.method,
+    url: req.originalUrl,
+    ip: req.ip,
+  });
+  next();
+});
+
 /* ---------- Health Check ---------- */
 app.get("/health", (req, res) => {
   res.status(200).json({
     status: "OK",
-    message: "Notes API is running"
+    message: "Health is Good:)"
   });
 });
 

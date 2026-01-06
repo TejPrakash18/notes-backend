@@ -1,6 +1,7 @@
 import swaggerAutogen from "swagger-autogen";
 
 const doc = {
+//   openapi: "3.0.0",
   info: {
     title: "Notes Taking API",
     description: "Production-ready Notes Taking REST API",
@@ -10,9 +11,9 @@ const doc = {
   schemes: ["http"],
   securityDefinitions: {
     BearerAuth: {
-      type: "apiKey",
-      in: "header",
-      name: "Authorization",
+      type: "http",
+      scheme: "bearer",
+      bearerFormat: "JWT",
       description: "JWT Authorization header using Bearer token",
     },
   },
