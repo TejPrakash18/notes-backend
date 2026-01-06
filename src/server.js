@@ -13,9 +13,22 @@ const startServer = async () => {
     await syncPostgres();
     await connectMongo();
 
-  app.listen(env.port, () => {
+const server =  app.listen(env.port, () => {
     console.log(`Server running on port ${env.port}`);
   });
 };
 
 startServer();
+const shutdown = async () => {
+  console.log("🛑 Shutting down server...");
+
+  await sequelize.close();
+  await mongoose.connection.close();
+
+  server.close(() => {
+    process.exit(0);
+  });
+};
+
+process.on("SIGTERM", shutdown);
+process.on("SIGINT", shutdown);

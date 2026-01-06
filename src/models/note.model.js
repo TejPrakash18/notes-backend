@@ -30,4 +30,4 @@ const noteSchema = new mongoose.Schema(
   }
 );
 
-export const Note = mongoose.model("Notes", noteSchema);
+export const Note = mongoose.model("Note", noteSchema);

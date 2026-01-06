@@ -3,6 +3,9 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import authRoutes from "./routes/auth.routes.js";
+import { errorHandler } from "./middlewares/error.middleware.js";
+import noteRoutes from "./routes/note.routes.js";
+
 
 
 const app = express();
@@ -23,6 +26,9 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/notes", noteRoutes);
 
+
+app.use(errorHandler);
 
 export default app;
